@@ -1,21 +1,24 @@
 require_relative '../config/environment'
 require 'pry'
 
-puts "hello world"
-
-
 #restaurants
-wendys = Restaurant.new("Wendys")
-mcdonalds = Restaurant.new("McDonalds")
+lostacos = Restaurant.new("Los Tacos")
+spice = Restaurant.new("Spice Symphony")
 
 #user
 adam = User.new("Adam", "Staiger")
 matt = User.new("Matt", "Sanders")
+amy = User.new("Amy", "Chen")
+lizzy = User.new("Lizzy", "Oh")
+sam = User.new("Sam", "Kim")
 
 #reviews
 
-satisfied = Review.new(wendys, "Satisfied", 5)
-nogood = Review.new(wendys, "No Good", 1)
+satisfied = Review.new(lostacos, "Satisfied", 5, adam)
+nogood = Review.new(lostacos, "No Good", 1, matt)
+pricy = Review.new(spice, "Too Pricy", 2, amy)
+love = Review.new(spice, "A Sense of Spice", 4, lizzy)
 
 binding.pry
+
 0
