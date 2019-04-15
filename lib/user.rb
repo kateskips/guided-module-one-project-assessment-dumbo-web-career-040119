@@ -39,14 +39,17 @@ class User
   end
   #given a string of a full name, returns the first customer whose full name matches
   def self.find_by_name(name)
-    @@all.find{|person| person.full_name == name}
+    @@all.find {|person| person.full_name == name}
   end
 
-   def self.find_all_by_first_name(name)
   #given a string of a first name, returns an array containing all customers with that first name
-   end
-
-  def self.all_names
-   #should return an array of all of the customer full names
+   def self.find_all_by_first_name(name)
+    @@all.select{|person|person.first_name == name}
   end
+
+  #should return an array of all of the customer full names
+  def self.all_names
+    @@all.select {|person| person.full_name}
+  end
+
 end
