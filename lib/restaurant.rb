@@ -35,5 +35,6 @@ class Restaurant
 
   #given a string of restaurant name, returns the first restaurant that matches
   def self.find_by_name(name)
+    @@all.find{|restaurant| restaurant.name == name}
   end
 end

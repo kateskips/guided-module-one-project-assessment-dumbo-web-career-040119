@@ -37,10 +37,9 @@ class User
     reviews = Review.all.map {|review| review.restaurant}
     reviews.uniq
   end
-
-  def self.find_by_name(name)
   #given a string of a full name, returns the first customer whose full name matches
-
+  def self.find_by_name(name)
+    @@all.find{|person| person.full_name == name}
   end
 
    def self.find_all_by_first_name(name)
