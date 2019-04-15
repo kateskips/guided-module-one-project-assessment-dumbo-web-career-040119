@@ -21,24 +21,26 @@ class User
   end
 
   def add_review(restaurant, content, rating)
-    areview = Review.new(restaurant, content, rating, self)
+    thereview = Review.new(restaurant, content, rating, self)
   end
 
   def num_reviews
-    Review.all.select do |num|
-      num.user == self
+    areview = Review.all.select do |rev|
+      rev.user == self
     end
+    areview.length
   end
 
   #Returns a **unique** array of all restaurants a user has reviewed
-  #def restaurants
-    #reviews = Review.all.select do |rev|
-      #rev.user == self
-        
-  #end
+  
+  def restaurants
+    reviews = Review.all.map {|review| review.restaurant}
+    reviews.uniq
+  end
 
   def self.find_by_name(name)
   #given a string of a full name, returns the first customer whose full name matches
+
   end
 
    def self.find_all_by_first_name(name)
