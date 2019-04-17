@@ -5,9 +5,4 @@ cli = CommandLineInterface.new
 
 cli.greet
 cli.login_or_signup
-
-
-
-
-
-0
+cli.main_menu
