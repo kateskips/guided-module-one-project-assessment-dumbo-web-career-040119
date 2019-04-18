@@ -3,7 +3,6 @@ class CommandLineInterface
 
   def greet
     puts 'Welcome to Quick Bites, a fast food resource for those fast food cravings in the city!'
-
   end
 
   # This is the first landing page for the user experience. 
@@ -93,11 +92,11 @@ class CommandLineInterface
     puts "To go back press enter, if not type in the name of the restaurant below."
     user_input = gets.chomp
     case user_input
-    when ""
+    when ""  # Gives you the option to go back (to the main menu)
       main_menu
     else
       restaurant_name = user_input
-      maybe_restaurant = Restaurant.find_by_name(restaurant_name)
+      maybe_restaurant = Restaurant.find_by_name(restaurant_name) # Finder method that checks restaurant and sees if the user input matches.
       case maybe_restaurant
       when nil
         puts "Restaurant does not exist, please try again."
@@ -109,7 +108,7 @@ class CommandLineInterface
 
         puts "Give a rating from 1-5"
         rating = gets.chomp
-        Review.create(user_id: @user.id, restaurant_id: restaurant.id, content: content, rating:   rating)
+        Review.create(user_id: @user.id, restaurant_id: restaurant.id, content: content, rating:   rating) # Creates a new review to the DB.
         puts "Thank you for your review!"
         main_menu
       end
@@ -122,14 +121,14 @@ class CommandLineInterface
     Review.display_user_review(@user)
     puts "For which restaurant you would like to delete?"
     restaurant_name = gets.chomp
-    maybe_restaurant = Restaurant.find_by_name(restaurant_name)
+    maybe_restaurant = Restaurant.find_by_name(restaurant_name) # Finder method that goes into restaurant and sees if the user matches the restaurant name.
     case maybe_restaurant
     when nil
       puts "Restaurant doesn't exist, please try again."
       delete_review
     else
       restaurant = maybe_restaurant
-      maybe_review = Review.where(user_id: @user.id, restaurant_id: restaurant.id).take
+      maybe_review = Review.where(user_id: @user.id, restaurant_id: restaurant.id).take # Finder that checks Reviews and sees if the @user matches the user.id/ .take takes the whole thing. 
       case maybe_review
       when nil
         puts "You did not write a review for #{restaurant_name}"
