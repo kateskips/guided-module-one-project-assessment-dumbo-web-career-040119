@@ -151,7 +151,8 @@ class CommandLineInterface
       puts "Alright, keeping your old name."
       main_menu  
     end
-    new_name = user.update(name: new_name)
+    @user.update(name: new_name)
+    puts "Your name is now, #{@user.name}"
     main_menu
   end
 end
