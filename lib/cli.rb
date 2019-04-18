@@ -55,7 +55,7 @@ class CommandLineInterface
     puts "1. View all Restaurants"
     puts "2. Write a Review"
     puts "3. Delete a Review"
-    puts "4. Edit your Review"
+    puts "4. Change user name"
     puts "5. View all Reviews"
     puts "6. Exit"
     user_input = gets.chomp
@@ -68,12 +68,11 @@ class CommandLineInterface
       main_menu
     when "2" # Write a review
       write_review
-    when "3"
-      #TO DO: Delete a Review
+    when "3"  #Delete a Review
       delete_review
       main_menu
-    when "4"
-      #TO DO: Edit your Review
+    when "4" # Change user name
+      change_name
       main_menu
     when "5" # View all reviews
       Review.display_all_reviews
@@ -142,14 +141,17 @@ class CommandLineInterface
     main_menu
   end
 
-  #TO DO: use the @user.id and update that somehow. update.name
-  #def edit_review
-    #puts 
-  #end
-
-  #def delete
-    #maybe_review = User.find_by(name)
-    #Review.destroy(maybe_review)
-  #end
-
+  def change_name
+    puts "Your name is: #{@user.name}"
+    puts "Enter a new name or press enter to keep your old name."
+    user_input = gets.chomp
+    new_name = user_input
+    case user_input
+    when ""
+      puts "Alright, keeping your old name."
+      main_menu  
+    end
+    new_name = user.update(name: new_name)
+    main_menu
+  end
 end
