@@ -109,7 +109,7 @@ class CommandLineInterface
 
         puts "Give a rating from 1-5"
         rating = gets.chomp
-        Review.create(user_id: user.id, restaurant_id: restaurant.id, content: content, rating:   rating)
+        Review.create(user_id: @user.id, restaurant_id: restaurant.id, content: content, rating:   rating)
         puts "Thank you for your review!"
         main_menu
       end
@@ -151,7 +151,8 @@ class CommandLineInterface
     case user_input
     when ""
       puts "Alright, keeping your old name."
-      main_menu  
+      main_menu
+    else
       @user.update(name: new_name)
       puts "Your name is now, #{@user.name}"
       main_menu
