@@ -2,7 +2,8 @@
 class CommandLineInterface
 
   def greet
-    puts 'Welcome to your very own fast food homie, a friend who finds quick fast food for you in the city!'
+    puts 'Welcome to Quick Bites, a fast food resource for those fast food cravings in the city!'
+
   end
 
   # This is the first landing page for the user experience. 
