@@ -1,7 +1,8 @@
 
 class CommandLineInterface
 
-  def greet
+  def greet # The automatic greeting message
+    puts `clear`
     puts 'Welcome to Quick Bites, a fast food resource for those fast food cravings in the city!'
   end
 
@@ -14,22 +15,22 @@ class CommandLineInterface
     user_input = gets.chomp.downcase
     case user_input
     when "y"
-      signup
+      signup # Directs to the signup method
       # @user exists
     when "n"
-      login
+      login # Directs to the login method
       # @user exists
     else
-      puts "Please respond with y or n! "
+      puts "Please respond with y or n!" # Puts this out if you don't put y or n
       login_or_signup
     end
     # @user exists
   end
 
-  def signup
+  def signup #This enables you to signup, where your input_input creates a new user.
     puts "Please enter your name"
     user_input = gets.chomp
-    @user = User.create(name: user_input)
+    @user = User.create(name: user_input) #  The user is created and user exists. Creates a new user and adds that into the database.
     puts "Welcome, #{user_input}!" 
     main_menu
   end 
@@ -40,7 +41,7 @@ class CommandLineInterface
     user_input = gets.chomp
     maybe_user = User.find_by_name(user_input)
     case maybe_user
-    when nil
+    when nil 
       puts "User doesn't exist, please try again."
       login
     else
@@ -70,10 +71,10 @@ class CommandLineInterface
       write_review
     when "3"  #Delete a Review
       delete_review
-      main_menu
+      #main_menu
     when "4" # Change user name
       change_name
-      main_menu
+      #main_menu
     when "5" # View all reviews
       Review.display_all_reviews
       main_menu
@@ -115,8 +116,8 @@ class CommandLineInterface
     end
   end
 
-  #TO DO: Ask questions to the user to find a single review to delete
   def delete_review
+    puts `clear`
     puts "Here are your reviews:"
     Review.display_user_review(@user)
     puts "For which restaurant you would like to delete?"
