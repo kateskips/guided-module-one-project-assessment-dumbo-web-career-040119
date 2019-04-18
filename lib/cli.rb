@@ -94,25 +94,26 @@ class CommandLineInterface
     user_input = gets.chomp
     case user_input
     when ""
-      main_menu  
-    end
-    restaurant_name = user_input
-    maybe_restaurant = Restaurant.find_by_name(restaurant_name)
-    case maybe_restaurant
-    when nil
-      puts "Restaurant does not exist, please try again."
-      write_review
+      main_menu
     else
-      restaurant = maybe_restaurant
-    end
-    puts "Write your Content"
-    content = gets.chomp
+      restaurant_name = user_input
+      maybe_restaurant = Restaurant.find_by_name(restaurant_name)
+      case maybe_restaurant
+      when nil
+        puts "Restaurant does not exist, please try again."
+        write_review
+      else
+        restaurant = maybe_restaurant
+        puts "Write your Content"
+        content = gets.chomp
 
-    puts "Give a rating from 1-5"
-    rating = gets.chomp
-    Review.create(user_id: user.id, restaurant_id: restaurant.id, content: content, rating: rating)
-    puts "Thank you for your review!"
-    main_menu
+        puts "Give a rating from 1-5"
+        rating = gets.chomp
+        Review.create(user_id: user.id, restaurant_id: restaurant.id, content: content, rating:   rating)
+        puts "Thank you for your review!"
+        main_menu
+      end
+    end
   end
 
   #TO DO: Ask questions to the user to find a single review to delete
@@ -128,18 +129,18 @@ class CommandLineInterface
       delete_review
     else
       restaurant = maybe_restaurant
+      maybe_review = Review.where(user_id: @user.id, restaurant_id: restaurant.id).take
+      case maybe_review
+      when nil
+        puts "You did not write a review for #{restaurant_name}"
+        delete_review
+      else
+        review = maybe_review
+        review.destroy
+        puts "Your review has been deleted"
+        main_menu
+      end
     end
-    maybe_review = Review.where(user_id: @user.id, restaurant_id: restaurant.id).take
-    case maybe_review
-    when nil
-      puts "You did not write a review for #{restaurant_name}"
-      delete_review
-    else
-      review = maybe_review
-    end
-    review.destroy
-    puts "Your review has been deleted"
-    main_menu
   end
 
   def change_name
@@ -151,9 +152,9 @@ class CommandLineInterface
     when ""
       puts "Alright, keeping your old name."
       main_menu  
+      @user.update(name: new_name)
+      puts "Your name is now, #{@user.name}"
+      main_menu
     end
-    @user.update(name: new_name)
-    puts "Your name is now, #{@user.name}"
-    main_menu
   end
 end
