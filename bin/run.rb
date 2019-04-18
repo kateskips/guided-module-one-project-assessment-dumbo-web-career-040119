@@ -6,3 +6,7 @@ cli = CommandLineInterface.new
 cli.greet
 cli.login_or_signup
 cli.main_menu
+
+
+
+#run this ruby bin/run.rb

@@ -5,7 +5,10 @@ class Restaurant < ActiveRecord::Base
 
   def self.display_restaurants 
     self.all.map do |restaurant|
-      puts restaurant.name 
+      #puts restaurant.name
+      #puts restaurant.cuisine
+      #puts restaurant.location
+      puts "#{restaurant.name} - Cuisine: #{restaurant.cuisine} - Location: #{restaurant.location}"
     end
   end 
 
