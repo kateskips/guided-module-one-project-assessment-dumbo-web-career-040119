@@ -76,7 +76,7 @@ class CommandLineInterface
       #TO DO: Edit your Review
       main_menu
     when "5" # View all reviews
-      Review.display_reviews(@user)
+      Review.display_all_reviews
       main_menu
     when "6"
       puts "Have a nice day!"
@@ -117,43 +117,39 @@ class CommandLineInterface
 
   #TO DO: Ask questions to the user to find a single review to delete
   def delete_review
-    Review.where(user_id: @user.id)
-
-    puts "Would you like to delete? (Y/N)"
-    user_input = gets.chomp.downcase
-    case user_input
-    when "y"
-      if User.find_by 
-        return Review.where(user_id:user_id)[0].content
-      else User.find(56)
-        return Review.where(user_id:user_id)[0].content
-      end
-
-      #Find a way to display review and delete the last review
-      #puts "Deleting last review"
-      #puts "Press enter"
-      #user_input = gets.chomp
-       #delete
-       #main_menu
-      #User.find(user_input).delete
-      #Review.find(@user)#if Review.delete(user_input) it deletes the whole reviews
-      #Review.destroy(@user)
-      binding.pry
-      puts "Your review has been deleted"
-      main_menu
-    when "n"
-      main_menu
+    puts "Here are your reviews:"
+    Review.display_user_review(@user)
+    puts "For which restaurant you would like to delete?"
+    restaurant_name = gets.chomp
+    maybe_restaurant = Restaurant.find_by_name(restaurant_name)
+    case maybe_restaurant
+    when nil
+      puts "Restaurant doesn't exist, please try again."
+      delete_review
+    else
+      restaurant = maybe_restaurant
     end
+    maybe_review = Review.where(user_id: @user.id, restaurant_id: restaurant.id).take
+    case maybe_review
+    when nil
+      puts "You did not write a review for #{restaurant_name}"
+      delete_review
+    else
+      review = maybe_review
+    end
+    review.destroy
+    puts "Your review has been deleted"
+    main_menu
   end
 
   #TO DO: use the @user.id and update that somehow. update.name
-  def edit_review
-    puts 
-  end
+  #def edit_review
+    #puts 
+  #end
 
-  def delete
-    maybe_review = User.find_by(name)
-    Review.destroy(maybe_review)
-  end
+  #def delete
+    #maybe_review = User.find_by(name)
+    #Review.destroy(maybe_review)
+  #end
 
 end
